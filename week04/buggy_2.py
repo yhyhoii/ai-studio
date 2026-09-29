@@ -20,7 +20,6 @@ def summarize(df):
     # FIXED: price가 문자열(str)이라 곱하면 숫자 곱셈이 아닌 문자열 반복이 일어나므로 숫자로 변환
     price = (df["price"].astype(str)
                          .str.replace(",", "")
-                         .str.replace("-", "")
                          .str.replace("원", "")
                          .str.strip())
     df["price"] = pd.to_numeric(price, errors="coerce")
