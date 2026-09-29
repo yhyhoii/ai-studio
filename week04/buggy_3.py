@@ -21,11 +21,11 @@ def load_and_clean(path):
                               .str.strip())
     df["price"] = pd.to_numeric(df["price"], errors="coerce")
     df["revenue"] = df["price"] * df["quantity"]
-    # (여기서 정제된 df를 돌려주려고 했는데...)   <-- 무언가 빠져 있다
+    return df  # FIXED: return이 없어 함수가 None을 반환했고, main()에서 None.groupby()로 AttributeError 발생
 
 def main():
     df = load_and_clean("dirty_sales.csv")
-    result = df.groupby("category")["revenue"].sum()   # <-- 여기서 죽는다
+    result = df.groupby("category")["revenue"].sum()
     print(result)
 
 if __name__ == "__main__":
