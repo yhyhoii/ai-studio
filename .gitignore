@@ -1,0 +1,6 @@
+# 이전 주차 개별 저장소 폴더 (각자 별도 GitHub 저장소로 제출됨)
+ai-studio-week0*/
+
+__pycache__/
+*.pyc
+.venv/
