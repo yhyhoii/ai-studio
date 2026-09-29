@@ -17,23 +17,32 @@ import pandas as pd
 def main():
     df = pd.read_csv("dirty_sales.csv", encoding="utf-8")
 
-    # price를 숫자로 바꾼다 (빈 값은 NaN이 된다 — 그런데 그 규모를 확인하지 않았다)
     df["price"] = (df["price"].astype(str)
                               .str.replace(",", "")
                               .str.replace("원", "")
                               .str.strip())
     df["price"] = pd.to_numeric(df["price"], errors="coerce")
+    # FIXED: coerce로 생긴 NaN 규모를 반드시 재확인 (price 결측 2건)
+    print(f"price 결측: {df['price'].isna().sum()}건")
 
-    # 매출액 = 단가 x 수량 (NaN이 섞이면 그 행의 매출액도 NaN)
+    # FIXED: IQR 규칙으로 price 이상치 후보 식별 (lower=-8500, upper=24300)
+    q1, q3 = df["price"].quantile(0.25), df["price"].quantile(0.75)
+    iqr = q3 - q1
+    lower, upper = q1 - 1.5 * iqr, q3 + 1.5 * iqr
+
+    # FIXED: 결측 2건은 비율(0.4%)이 낮아 삭제 선택
+    df = df.dropna(subset=["price"])
+    # FIXED: 음수(마들렌 -4500, 정상가 2800과 불일치)와 9999999(카페라떼)는 입력 오류로 판단해 제외
+    df = df[~((df["price"] < lower) | (df["price"] > upper) | (df["price"] < 0))]
+    # FIXED: quantity 9999999(텀블러)는 placeholder로 추정, 총매출을 왜곡하므로 제외
+    df = df[df["quantity"] != 9999999]
+
     df["revenue"] = df["price"] * df["quantity"]
-
-    # sum()은 NaN을 조용히 건너뛰고, 음수/극단값은 그대로 더한다
     total = df["revenue"].sum()
     avg_price = df["price"].mean()
 
     print(f"총 매출액: {total:,.0f}원")
     print(f"평균 단가: {avg_price:,.0f}원")
-    # 출력은 그럴듯하지만, 이 숫자를 그대로 믿어도 될까?
 
 if __name__ == "__main__":
     main()
