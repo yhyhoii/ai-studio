@@ -15,3 +15,10 @@
 2. 새 키는 `.env`로 격리하고 `.gitignore`를 정비한다.
 3. 사용량·청구 내역을 점검하고, 필요하면 사업자에 신고한다.
 4. 히스토리에 남은 옛 키는 이미 무효이므로 위협이 아니다. 저장소 정리가 필요하면 이력 재작성 도구(git filter-repo 등)를 쓴다.
+
+
+## 검증 캡처 (.env 미추적 증명)
+![git status / check-ignore / ls-files 결과](screenshots/verify_env.png)
+
+- 보안 체크리스트: [security_checklist.md](security_checklist.md)
+- AI 사용 기록: [usage_log.md](usage_log.md)
