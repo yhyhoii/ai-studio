@@ -4,3 +4,4 @@ ai-studio-week0*/
 __pycache__/
 *.pyc
 .venv/
+.env
