@@ -20,5 +20,5 @@
 ## 검증 캡처 (.env 미추적 증명)
 ![git status / check-ignore / ls-files 결과](screenshots/verify_env.png)
 
-- 보안 체크리스트: [security_checklist.md](security_checklist.md)
+- 보안 체크리스트 + 제출 체크리스트: [security_checklist.md](security_checklist.md)
 - AI 사용 기록: [usage_log.md](usage_log.md)
