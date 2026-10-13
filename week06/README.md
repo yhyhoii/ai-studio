@@ -1,0 +1,61 @@
+# Week06 — LLM API 구조와 프롬프트 엔지니어링
+
+| 과제 | 위치 |
+|---|---|
+| 과제 1: 프롬프트 3기법 비교 리포트 (개인) | [assignment1/report.md](assignment1/report.md) |
+| 과제 2: Mock 분류기 확장 (개인) | [assignment2/](assignment2/) |
+| 과제 3: 팀 가주제 브레인스토밍 노트 (팀) | 팀 저장소 [Team_Decoders/team_brainstorm.md](https://github.com/benebeau214/Team_Decoders/blob/main/team_brainstorm.md) |
+
+---
+
+## 제출 체크리스트 (강의노트 39쪽)
+
+| 번호 | 확인 항목 | 확인 | 위치 (파일 : 제목 / 줄 번호) |
+|---|---|---|---|
+| 1 | 과제 1: 프롬프트 3종 전문과 15개 조합 실행 기록 포함 | ☑ | `assignment1/report.md` : 3. 프롬프트 전문 (26행), 4. 결과 표 (117행) / 실행 프롬프트 `assignment1/prompts_21.md` / 캡처 `assignment1/captures/` (21장) |
+| 2 | 과제 1: 반복 실행 3회의 일관성 관찰 결과 포함 | ☑ | `assignment1/report.md` : 5. 반복 실행 (131행), 6. 분석 > 일관성 (158행) |
+| 3 | 과제 1: 테스트 입력에 PII가 없는지 확인 (5주차 보안 체크리스트 첨부) | ☑ | `assignment1/report.md` : 2. 테스트 입력 (17행) — 직접 작성한 가상 리뷰 / 보안 체크리스트: 이 문서 아래 |
+| 4 | 과제 2: 불량 응답 시에도 파이프라인이 정상 종료됨을 캡처로 증명 | ☑ | `assignment2/captures/run_200.png` — 200건 처리 후 "처리 200건 / 실패 27건" 출력 및 정상 종료 |
+| 5 | 과제 2: 의미 단위 3커밋 이상, 커밋 메시지 규칙 준수 | ☑ | `fbda266` feat: add 20% malformed responses to mock_llm_call / `190925b` feat: count failures and print processing summary / `f995608` test: run pipeline on reviews_sample.csv (200 reviews) |
+| 6 | 과제 3: 팀 가주제 후보 2~3개와 리스크 분석 표 포함 | ☑ | 팀 저장소 `team_brainstorm.md` : 2. 가주제 후보 비교 (후보 3개, "예상되는 최대 리스크" 행) |
+| 7 | AI 사용 기록(프롬프트·채택 내역) 첨부 | ☑ | 과제 1: `assignment1/report.md` : 8. AI 사용 기록 (179행) / 과제 2: 이 문서 아래 "AI 사용 기록" |
+| 8 | GitHub 저장소 링크 제출 (커밋 히스토리 공개 상태 확인) | ☑ | https://github.com/yhyhoii/ai-studio/tree/main/week06 (Public) |
+
+## 과제 2 코드 위치
+
+| 내용 | 위치 |
+|---|---|
+| 불량 응답 확률 20% | `assignment2/mock_llm.py` 5행 |
+| 불량 응답 3유형 생성 (코드펜스 / 사족 / 잘린 JSON) | `assignment2/mock_llm.py` 11~22행 `make_malformed()` |
+| 유형별 불량 응답 횟수 기록 | `assignment2/mock_llm.py` 8행 |
+| 3중 방어 (코드펜스 제거 / 파싱 예외 처리 / 값 검증) | `assignment2/classify.py` 16·21·28행 |
+| 실패 건 집계 및 "처리 N건 / 실패 M건" 출력 | `assignment2/run_pipeline.py` 16~42행 `main()` (출력 34행) |
+| 실패 M건 < 불량 응답 건수인 이유 출력 | `assignment2/run_pipeline.py` 41~42행 — 코드펜스형은 방어 1이 복구하고, 사족형·잘린 JSON형만 실패 |
+
+실행: `assignment2` 폴더에서 `python run_pipeline.py`
+
+---
+
+## AI·데이터 보안 체크리스트 (5주차 첨부 1호)
+
+| 구분 | 번호 | 점검 항목 | 확인 | 비고 |
+|---|---|---|---|---|
+| 데이터 | S1 | 제출물에 실존 인물의 실명·전화번호·이메일 등 PII가 포함되지 않았다 (더미 데이터 사용) | ☑ 예 | 과제 1 테스트 리뷰는 직접 작성한 가상 문장, 과제 2는 수업 배포용 가상 리뷰 데이터 |
+| 데이터 | S2 | 외부 AI(챗봇·API)에 기업 기밀·타인 코드·PII를 입력하지 않았다 | ☑ 예 | 무료 챗봇에는 직접 작성한 가상 리뷰와 프롬프트만 입력 |
+| 데이터 | S3 | 외부 데이터 사용 시 출처·라이선스를 확인하고 PII 열을 비식별 처리했다 | 해당 없음 | 외부 데이터 미사용 (수업 배포 데이터만 사용) |
+| 키 관리 | S4 | API 키·비밀번호가 소스코드에 하드코딩되어 있지 않다 | ☑ 예 | Mock 함수 사용으로 키 없음 |
+| 키 관리 | S5 | .env 파일이 .gitignore에 등록되어 있고, git ls-files 확인 결과 추적되지 않는다 | ☑ 예 | 저장소 루트 `.gitignore`에 `.env` 등록, week06에는 .env 없음 |
+| 키 관리 | S6 | 커밋 히스토리에 키가 노출된 적이 없다 (노출 시 폐기·재발급 완료를 명기) | ☑ 예 | week06 커밋에 키 없음 |
+| 키 관리 | S7 | 키·비밀 값을 print/log/스크린샷으로 전체 출력하지 않았다 | ☑ 예 | |
+| AI 사용 | S8 | AI 사용 내역(프롬프트·채택·수정)을 과제 규정에 따라 기록·첨부했다 | ☑ 예 | 과제 1: report.md 8번 / 과제 2: 아래 기록 |
+| AI 사용 | S9 | (LLM 기능 포함 시) 사용자 입력 검증과 출력 검증(형식 확인)을 적용했다 | ☑ 예 | 출력 검증: `classify.py` 3중 방어 (코드펜스 제거, JSON 파싱 예외 처리, category 값 검증) |
+| AI 사용 | S10 | (LLM 기능 포함 시) 시스템 프롬프트에 비밀 정보를 포함하지 않았다 | ☑ 예 | `classify.py`의 SYSTEM은 분류 규칙과 출력 형식만 포함 |
+
+---
+
+## AI 사용 기록 (과제)
+
+| 단계 | AI에게 요청한 것 | AI 결과 | 채택 / 수정 |
+|---|---|---|---|
+| 테스트 입력 | 내가 쓴 문장이 충분히 애매한지 점검 | 애매 사례가 기준끼리 충돌하는지 피드백 | 문장과 정답은 직접 작성·결정 |
+| 실행 준비 | 21회 실행용 프롬프트 정리 | `prompts_21.md` 생성 | 채택 (실행은 직접 Claude.ai에서 수행) |
