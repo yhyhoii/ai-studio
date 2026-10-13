@@ -13,12 +13,12 @@
 | 번호 | 확인 항목 | 확인 | 위치 (파일 : 제목 / 줄 번호) |
 |---|---|---|---|
 | 1 | 과제 1: 프롬프트 3종 전문과 15개 조합 실행 기록 포함 | ☑ | `assignment1/report.md` : 3. 프롬프트 전문 (26행), 4. 결과 표 (117행) / 실행 프롬프트 `assignment1/prompts_21.md` / 캡처 `assignment1/captures/` (21장) |
-| 2 | 과제 1: 반복 실행 3회의 일관성 관찰 결과 포함 | ☑ | `assignment1/report.md` : 5. 반복 실행 (131행), 6. 분석 > 일관성 (158행) |
+| 2 | 과제 1: 반복 실행 3회의 일관성 관찰 결과 포함 | ☑ | `assignment1/report.md` : 5. 반복 실행 (131행), 6. 분석 > 일관성 (159행) |
 | 3 | 과제 1: 테스트 입력에 PII가 없는지 확인 (5주차 보안 체크리스트 첨부) | ☑ | `assignment1/report.md` : 2. 테스트 입력 (17행) — 직접 작성한 가상 리뷰 / 보안 체크리스트: 이 문서 아래 |
 | 4 | 과제 2: 불량 응답 시에도 파이프라인이 정상 종료됨을 캡처로 증명 | ☑ | `assignment2/captures/run_200.png` — 200건 처리 후 "처리 200건 / 실패 27건" 출력 및 정상 종료 |
 | 5 | 과제 2: 의미 단위 3커밋 이상, 커밋 메시지 규칙 준수 | ☑ | `fbda266` feat: add 20% malformed responses to mock_llm_call / `190925b` feat: count failures and print processing summary / `f995608` test: run pipeline on reviews_sample.csv (200 reviews) |
 | 6 | 과제 3: 팀 가주제 후보 2~3개와 리스크 분석 표 포함 | ☑ | 팀 저장소 `team_brainstorm.md` : 2. 가주제 후보 비교 (후보 3개, "예상되는 최대 리스크" 행) |
-| 7 | AI 사용 기록(프롬프트·채택 내역) 첨부 | ☑ | 이 문서 아래 "AI 사용 기록 (과제 1·2)" / 과제 1 요약: `assignment1/report.md` : 8. AI 사용 기록 (179행) |
+| 7 | AI 사용 기록(프롬프트·채택 내역) 첨부 | ☑ | 이 문서 아래 "AI 사용 기록 (과제 1·2)" / 과제 1 요약: `assignment1/report.md` : 8. AI 사용 기록 (181행) |
 | 8 | GitHub 저장소 링크 제출 (커밋 히스토리 공개 상태 확인) | ☑ | https://github.com/yhyhoii/ai-studio/tree/main/week06 (Public) |
 
 ## 과제 2 코드 위치
